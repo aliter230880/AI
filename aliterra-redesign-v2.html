@@ -1,1 +1,651 @@
-
+$ create /workspace/aliterra-redesign-v2.html
+create /workspace/aliterra-redesign-v2.html
+ERROR:
+Invalid `path` parameter: /workspace/aliterra-redesign-v2.html. File already exists at: /workspace/aliterra-redesign-v2.html. Cannot overwrite files using command `create`.
+$ edit /workspace/aliterra-redesign-v2.html
+ERROR:
+Invalid `new_str` parameter: <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AliTerra - Web3 Gaming Ecosystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #030014;
+            --primary-neon: #00f3ff;
+            --secondary-neon: #bc13fe;
+            --accent-neon: #ff0055;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #a0a0c0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        /* --- Background Effects --- */
+        .bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 50% 50%, #0a0524 0%, #000000 100%);
+        }
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            animation: gridMove 20s linear infinite;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+        @keyframes gridMove {
+            0% { transform: translateY(0) rotateX(20deg); }
+            100% { transform: translateY(50px) rotateX(20deg); }
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: floatOrb 10s ease-in-out infinite;
+            z-index: -1;
+        }
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary-neon);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-neon);
+            bottom: 10%;
+            right: -50px;
+            animation-delay: -5s;
+        }
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent-neon);
+            top: 40%;
+            left: 30%;
+            animation-delay: -2s;
+            opacity: 0.4;
+        }
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        /* --- Floating Shapes --- */
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            animation: floatShape 15s infinite linear;
+        }
+        .shape-cube {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 10%;
+            transform: rotate(45deg);
+            animation-duration: 20s;
+        }
+        .shape-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            top: 70%;
+            left: 85%;
+            border-color: var(--primary-neon);
+            animation-duration: 25s;
+            animation-direction: reverse;
+        }
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 50px solid rgba(188, 19, 254, 0.1);
+            top: 15%;
+            right: 20%;
+            background: transparent;
+            border-top: none;
+            animation-duration: 18s;
+        }
+        @keyframes floatShape {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+        /* --- Layout & Typography --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(3, 0, 20, 0.5);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fff, var(--primary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+            letter-spacing: 2px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        nav a:hover {
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px var(--primary-neon);
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-neon);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary-neon);
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .btn-glass {
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-main);
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            color: var(--primary-neon);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(188, 19, 254, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text-main);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.4), rgba(188, 19, 254, 0.4));
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 20px;
+            color: var(--primary-neon);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            animation: pulseBadge 2s infinite;
+        }
+        @keyframes pulseBadge {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(0, 243, 255, 0.4); }
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(40px, 5vw, 80px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 50%, var(--primary-neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.3));
+            position: relative;
+        }
+        h1::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.3;
+            filter: blur(20px);
+            z-index: -1;
+        }
+        .hero-description {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* --- Download Grid --- */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .download-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px 10px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .download-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--primary-neon);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .download-card:hover::before {
+            opacity: 1;
+        }
+        .card-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-subtitle {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        /* Special gradients for cards */
+        .download-card.android:hover { border-color: #3DDC84; box-shadow: 0 10px 30px rgba(61, 220, 132, 0.3); }
+        .download-card.telegram:hover { border-color: #0088cc; box-shadow: 0 10px 30px rgba(0, 136, 204, 0.3); }
+        .download-card.windows:hover { border-color: #00A4EF; box-shadow: 0 10px 30px rgba(0, 164, 239, 0.3); }
+        .download-card.online:hover { border-color: var(--secondary-neon); box-shadow: 0 10px 30px rgba(188, 19, 254, 0.3); }
+        .download-card.vk:hover { border-color: #0077FF; box-shadow: 0 10px 30px rgba(0, 119, 255, 0.3); }
+        .download-card.rustore:hover { border-color: #FF4D4D; box-shadow: 0 10px 30px rgba(255, 77, 77, 0.3); }
+        /* --- Stats Section (Glass Cards) --- */
+        .stats-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .stat-card {
+            background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+        }
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        /* --- Footer --- */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: var(--primary-neon);
+        }
+        .copyright {
+            color: rgba(255,255,255,0.3);
+            font-size: 12px;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none; /* Simple hide for mobile demo, would need burger menu in prod */
+            }
+            .hero {
+                padding-top: 120px;
+            }
+            .download-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-canvas"></div>
+    <div class="grid-overlay"></div>
+    
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="shape shape-cube"></div>
+    <div class="shape shape-circle"></div>
+    <div class="shape shape-triangle"></div>
+    <!-- Header -->
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">ALITERRA</div>
+            <nav>
+                <ul>
+                    <li><a href="#nft">NFT</a></li>
+                    <li><a href="#faq">F.A.Q.</a></li>
+                    <li><a href="#exchange">Exchange</a></li>
+                    <li><a href="#wallet">Wallet</a></li>
+                    <li><a href="#cex">CEX</a></li>
+                    <li><a href="#chat">Chat</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#signin" class="btn-glass btn-outline">Sign In</a>
+                <a href="#signup" class="btn-glass btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-badge">WEB3 GAMING ECOSYSTEM</div>
+            <h1 data-text="NEXT GENERATION MINING">NEXT GENERATION<br>MINING</h1>
+            <p class="hero-description">
+                Погрузитесь в будущее цифровых активов. AliTerra объединяет передовые технологии блокчейна, 
+                искусственный интеллект и иммерсивный гейминг в единую экосистему нового поколения.
+            </p>
+            <div class="download-grid">
+                <a href="#android" class="download-card android">
+                    <div class="card-icon">🤖</div>
+                    <div class="card-title">Android</div>
+                    <div class="card-subtitle">Mobile App</div>
+                </a>
+                <a href="#miner" class="download-card telegram">
+                    <div class="card-icon">✈️</div>
+                    <div class="card-title">Miner</div>
+                    <div class="card-subtitle">Telegram Bot</div>
+                </a>
+                <a href="#windows" class="download-card windows">
+                    <div class="card-icon">🪟</div>
+                    <div class="card-title">Windows</div>
+                    <div class="card-subtitle">Desktop Client</div>
+                </a>
+                <a href="#play" class="download-card online">
+                    <div class="card-icon">🎮</div>
+                    <div class="card-title">Play Online</div>
+                    <div class="card-subtitle">Web Version</div>
+                </a>
+                <a href="#vk" class="download-card vk">
+                    <div class="card-icon">🔵</div>
+                    <div class="card-title">VK GAMES</div>
+                    <div class="card-subtitle">Social Platform</div>
+                </a>
+                <a href="#rustore" class="download-card rustore">
+                    <div class="card-icon">🇷🇺</div>
+                    <div class="card-title">RuStore</div>
+                    <div class="card-subtitle">RU Market</div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">2.5M+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$50M+</div>
+                    <div class="stat-label">Volume Traded</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">150K+</div>
+                    <div class="stat-label">NFT Assets</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">AI Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#support">Support</a>
+                <a href="#api">API</a>
+                <a href="#blog">Blog</a>
+            </div>
+            <div class="copyright">
+                &copy; 2024 AliTerra Space. All rights reserved. Designed with Web3 Vision.
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Parallax Effect for Shapes
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.shape');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (window.innerWidth / 2 - e.clientX) / speed;
+                const yOffset = (window.innerHeight / 2 - e.clientY) / speed;
+                
+                shape.style.transform = `translate(${xOffset}px, ${yOffset}px) rotate(${index * 45}deg)`;
+            });
+            // Subtle tilt for hero content
+            const heroContent = document.querySelector('.hero-content');
+            const rotateX = (window.innerHeight / 2 - e.clientY) / 100;
+            const rotateY = (e.clientX - window.innerWidth / 2) / 100;
+            
+            heroContent.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        // Interactive Card Glow
+        const cards = document.querySelectorAll('.download-card, .stat-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.1), rgba(255,255,255,0.05))`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.background = '';
+            });
+        });
+    </script>
+</body>
+</html>. No replacement was performed. `new_str` and `old_str` must be different.
